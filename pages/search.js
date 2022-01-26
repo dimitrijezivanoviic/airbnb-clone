@@ -4,9 +4,9 @@ import Footer from "../components/Footer";
 import { useRouter } from "next/router";
 import { format } from "date-fns";
 import InfoCard from "../components/InfoCard";
+import Map from "../components/Map";
 
-function Search({ serachResults }) {
-  console.log(serachResults);
+function Search({ searchResults }) {
   const router = useRouter();
   const { location, startDate, endDate, noOfGuests } = router.query;
 
@@ -36,7 +36,7 @@ function Search({ serachResults }) {
           </div>
 
           <div className="flex flex-col">
-            {serachResults.map(
+            {searchResults.map(
               ({ img, location, title, description, star, price, total }) => (
                 <InfoCard
                   key={img}
@@ -52,6 +52,10 @@ function Search({ serachResults }) {
             )}
           </div>
         </section>
+
+        <section className="hidden xl:inline-flex xl:min-w-[600px]">
+          <Map searchResults={searchResults} />
+        </section>
       </main>
 
       <Footer />
@@ -62,13 +66,13 @@ function Search({ serachResults }) {
 export default Search;
 
 export async function getServerSideProps() {
-  const serachResults = await fetch("https://links.papareact.com/isz").then(
+  const searchResults = await fetch("https://links.papareact.com/isz").then(
     (rest) => rest.json()
   );
 
   return {
     props: {
-      serachResults,
+      searchResults,
     },
   };
 }
