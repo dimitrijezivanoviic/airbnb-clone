@@ -27,7 +27,7 @@ function Map({ searchResults }) {
 
   return (
     <ReactMapGL
-      mapStyle="mapbox://styles/dimitrijedica/ckyuo3z0b002b15pheg45o8e4"
+      mapStyle="mapbox://styles/dimitrijedica/ckywu1ubs005a15pqmhstf2ai"
       mapboxApiAccessToken={process.env.mapbox_key}
       {...viewport}
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
