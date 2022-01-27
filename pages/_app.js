@@ -23,6 +23,10 @@ function MyApp({ Component, pageProps }) {
           rel="icon"
           href="https://a0.muscache.com/airbnb/static/icons/android-icon-192x192-c0465f9f0380893768972a31a614b670.png"
         />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        ></meta>
       </Head>
 
       <Component {...pageProps} />
