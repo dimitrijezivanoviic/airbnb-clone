@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import Router from "next/router";
 import Head from "next/head";
+import { UserAuthContextProvider } from "../context/UserAuthContext";
 
 const progress = new ProgressBar({
   size: 4,
@@ -29,7 +30,9 @@ function MyApp({ Component, pageProps }) {
         ></meta>
       </Head>
 
-      <Component {...pageProps} />
+      <UserAuthContextProvider>
+        <Component {...pageProps} />
+      </UserAuthContextProvider>
     </>
   );
 }

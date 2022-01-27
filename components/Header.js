@@ -12,6 +12,7 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { useRouter } from "next/router";
+import { useUserAuth } from "../context/UserAuthContext";
 
 function Header({ placeholder }) {
   const [searchInput, setSearchInput] = useState("");
@@ -25,6 +26,20 @@ function Header({ placeholder }) {
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
+  };
+
+  const { user, logOut } = useUserAuth();
+
+  console.log(user);
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      router.push("/login");
+      console.log("logout");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const resetInput = () => {
@@ -95,8 +110,19 @@ function Header({ placeholder }) {
               <GlobeAltIcon className="h-5 cursor-pointer" />
 
               <div className="flex items-center space-x-2 border-2 p-2 rounded-full bg-white text-gray-600">
-                <MenuIcon className="h-5 cursor-pointer md:mr-2" />
-                <UserCircleIcon className="h-5" />
+                <MenuIcon className="h-5 lg:h-6 cursor-pointer md:mr-2" />
+                {user ? (
+                  <Image
+                    src={user.photoURL}
+                    height={20}
+                    width={20}
+                    alt="slika"
+                    className="rounded-full cursor-pointer"
+                    onClick={handleLogout}
+                  />
+                ) : (
+                  <UserCircleIcon className="h-5 lg:h-6" />
+                )}
               </div>
             </div>
           </>

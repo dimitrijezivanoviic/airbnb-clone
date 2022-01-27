@@ -20,7 +20,7 @@ function Map({ searchResults }) {
     height: "100%",
     latitude: center.latitude,
     longtitude: center.longitude,
-    zoom: 11,
+    zoom: 10,
   });
 
   console.log(selectedLocation);
@@ -57,7 +57,10 @@ function Map({ searchResults }) {
               latitude={result.lat}
               longitude={result.long}
             >
-              {result.title}
+              <>
+                {result.title}
+                {result.price}
+              </>
             </Popup>
           ) : (
             false

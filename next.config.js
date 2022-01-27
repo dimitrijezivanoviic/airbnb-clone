@@ -1,6 +1,11 @@
 module.exports = {
   images: {
-    domains: ["links.papareact.com"],
+    domains: [
+      "links.papareact.com",
+      "mir-s3-cdn-cf.behance.net",
+      "logos-world.net",
+      "lh3.googleusercontent.com",
+    ],
   },
   env: {
     mapbox_key:
