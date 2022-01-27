@@ -18,7 +18,7 @@ function Search({ searchResults }) {
     <div className="h-screen">
       <Header placeholder={`${location} | ${range} | ${noOfGuests} guests`} />
 
-      <main className="flex">
+      <main className="flex flex-col-reverse md:flex-row">
         <section className="flex-grow pt-14 px-6">
           <p className="text-xs">
             300+ Stays - {range} - for {noOfGuests} guests
@@ -53,7 +53,7 @@ function Search({ searchResults }) {
           </div>
         </section>
 
-        <section className="hidden xl:inline-flex xl:min-w-[600px] h-screen sticky top-0">
+        <section className="h-72 md:h-screen md:sticky md:top-0 xl:min-w-[600px] ">
           <Map searchResults={searchResults} />
         </section>
       </main>
