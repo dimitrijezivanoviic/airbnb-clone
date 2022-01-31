@@ -5,8 +5,10 @@ import Router from "next/router";
 import Head from "next/head";
 import firebase from "firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import Login from "./login";
+import { useEffect } from "react";
+import Loading from "../components/Loading";
 
 const progress = new ProgressBar({
   size: 4,
@@ -20,7 +22,20 @@ Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
 function MyApp({ Component, pageProps }) {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
+
+  console.log(user);
+  useEffect(() => {
+    if (user) {
+      db.collection("users").doc(user.uid).set({
+        name: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+      });
+    }
+  }, [user]);
+
+  if (loading) return <Loading />;
 
   if (!user) return <Login />;
   return (

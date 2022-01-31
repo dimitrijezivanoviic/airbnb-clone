@@ -11,8 +11,6 @@ function Map({ searchResults }) {
     latitude: result.lat,
   }));
 
-  console.log(coordinates);
-
   const center = getCenter(coordinates);
 
   const [viewport, setViewport] = useState({
@@ -22,8 +20,6 @@ function Map({ searchResults }) {
     longtitude: center.longitude,
     zoom: 10,
   });
-
-  console.log(selectedLocation);
 
   return (
     <ReactMapGL
