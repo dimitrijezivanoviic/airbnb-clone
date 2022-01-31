@@ -3,7 +3,10 @@ import "../styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import Router from "next/router";
 import Head from "next/head";
-import { UserAuthContextProvider } from "../context/UserAuthContext";
+import firebase from "firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import Login from "./login";
 
 const progress = new ProgressBar({
   size: 4,
@@ -17,6 +20,9 @@ Router.events.on("routeChangeComplete", progress.finish);
 Router.events.on("routeChangeError", progress.finish);
 
 function MyApp({ Component, pageProps }) {
+  const [user] = useAuthState(auth);
+
+  if (!user) return <Login />;
   return (
     <>
       <Head>
@@ -30,9 +36,7 @@ function MyApp({ Component, pageProps }) {
         ></meta>
       </Head>
 
-      <UserAuthContextProvider>
-        <Component {...pageProps} />
-      </UserAuthContextProvider>
+      <Component {...pageProps} />
     </>
   );
 }

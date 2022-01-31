@@ -12,9 +12,11 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import { useRouter } from "next/router";
-import { useUserAuth } from "../context/UserAuthContext";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
 
 function Header({ placeholder }) {
+  const [user] = useAuthState(auth);
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -26,20 +28,6 @@ function Header({ placeholder }) {
   const handleSelect = (ranges) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
-  };
-
-  const { user, logOut } = useUserAuth();
-
-  console.log(user);
-
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      router.push("/login");
-      console.log("logout");
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
   const resetInput = () => {
@@ -118,7 +106,7 @@ function Header({ placeholder }) {
                     width={20}
                     alt="slika"
                     className="rounded-full cursor-pointer"
-                    onClick={handleLogout}
+                    onClick={() => auth.signOut()}
                   />
                 ) : (
                   <UserCircleIcon className="h-5 lg:h-6" />

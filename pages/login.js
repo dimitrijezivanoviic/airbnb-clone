@@ -1,22 +1,10 @@
 import React from "react";
 import Image from "next/image";
-import { useUserAuth } from "../context/UserAuthContext";
-import { useRouter } from "next/router";
-// import Link from "next/link";
+import { auth, provider } from "../firebase";
 
 function Login() {
-  const { googleSignIn } = useUserAuth();
-  const router = useRouter();
-
-  const handleGoogleSignIn = async (e) => {
-    e.preventDefault();
-
-    try {
-      await googleSignIn();
-      router.push("/");
-    } catch (err) {
-      console.log(err.message);
-    }
+  const signIn = () => {
+    auth.signInWithPopup(provider).catch(alert);
   };
   return (
     <div className="grid place-items-center">
@@ -28,7 +16,7 @@ function Login() {
         alt="Airbnb logo"
       />
       <h1
-        onClick={handleGoogleSignIn}
+        onClick={signIn}
         className="p-5 bg-red-500 rounded-full text-white text-center cursor-pointer"
       >
         Login with Google
